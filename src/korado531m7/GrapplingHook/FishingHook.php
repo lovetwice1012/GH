@@ -21,15 +21,13 @@
  
 namespace korado531m7\GrapplingHook;
 
+use pocketmine\Player;
 use pocketmine\entity\Entity;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
-use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\entity\projectile\Projectile;
 use pocketmine\level\Level;
 use pocketmine\math\RayTraceResult;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
-use pocketmine\Player;
-use pocketmine\entity\projectile\Projectile;
 use pocketmine\utils\Random;
 
 class FishingHook extends Projectile{
@@ -53,10 +51,6 @@ class FishingHook extends Projectile{
 
     public function onHitEntity(Entity $entityHit, RayTraceResult $hitResult) : void{
         //Do nothing
-    }
-
-    public function canBePushed() : bool{
-        return false;
     }
 
     public function handleHookCasting(float $x, float $y, float $z, float $f1, float $f2){

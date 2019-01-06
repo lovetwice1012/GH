@@ -23,11 +23,11 @@ declare(strict_types=1);
 
 namespace korado531m7\GrapplingHook;
 
+use pocketmine\Player;
 use pocketmine\entity\Entity;
+use pocketmine\item\Tool;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\AnimatePacket;
-use pocketmine\Player;
-use pocketmine\item\Tool;
 
 class FishingRod extends Tool{
 

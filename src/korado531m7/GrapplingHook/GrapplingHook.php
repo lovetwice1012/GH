@@ -1,9 +1,9 @@
 <?php
 namespace korado531m7\GrapplingHook;
 
-use pocketmine\plugin\PluginBase;
 use pocketmine\Player;
 use pocketmine\item\ItemFactory;
+use pocketmine\plugin\PluginBase;
 
 class GrapplingHook extends PluginBase{
     private static $fishing = [];
