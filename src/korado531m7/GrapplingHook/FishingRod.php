@@ -35,16 +35,16 @@ class FishingRod extends Tool{
         parent::__construct(self::FISHING_ROD, 0, 'Fishing Rod');
     }
 
-    public function getEnchantability() : int{
-        return 1;
-    }
-
     public function getMaxStackSize() : int{
         return 1;
     }
 
     public function getMaxDurability() : int{
         return 65;
+    }
+    
+    public function getFuelTime() : int{
+        return 300;
     }
 
     public function onClickAir(Player $player, Vector3 $directionVector) : bool{
