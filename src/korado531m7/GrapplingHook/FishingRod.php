@@ -46,20 +46,21 @@ class FishingRod extends Tool{
     public function getFuelTime() : int{
         return 300;
     }
+    
+    public function onAttackEntity(Entity $victim) : bool{
+        return $this->applyDamage(1);
+    }
 
     public function onClickAir(Player $player, Vector3 $directionVector) : bool{
         if(GrapplingHook::getFishingHook($player) === null){
-            $hook = new FishingHook($player->level, Entity::createBaseNBT($player), $player);
-            if($hook instanceof FishingHook){
-                $hook->spawnToAll();
-            }
-            $player->broadcastEntityEvent(AnimatePacket::ACTION_SWING_ARM);
+            $nbt = Entity::createBaseNBT($player);
+            $hook = Entity::createEntity('FishingHook', $player->level, $nbt, $player);
+            $hook->spawnToAll();
         }else{
             $hook = GrapplingHook::getFishingHook($player);
             $hook->handleHookRetraction();
-            $player->broadcastEntityEvent(AnimatePacket::ACTION_SWING_ARM);
-            $this->applyDamage(1);
         }
+        $player->broadcastEntityEvent(AnimatePacket::ACTION_SWING_ARM);
         return true;
     }
 }
