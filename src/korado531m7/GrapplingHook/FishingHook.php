@@ -22,6 +22,7 @@
 namespace korado531m7\GrapplingHook;
 
 use pocketmine\Player;
+use pocketmine\block\Block;
 use pocketmine\entity\Entity;
 use pocketmine\entity\projectile\Projectile;
 use pocketmine\level\Level;
@@ -51,6 +52,10 @@ class FishingHook extends Projectile{
 
     public function onHitEntity(Entity $entityHit, RayTraceResult $hitResult) : void{
         //Do nothing
+    }
+    
+    protected function onHitBlock(Block $blockHit, RayTraceResult $hitResult) : void{
+        parent::onHitBlock($blockHit, $hitResult);
     }
 
     public function handleHookCasting(float $x, float $y, float $z, float $f1, float $f2){
@@ -90,15 +95,29 @@ class FishingHook extends Projectile{
 
     public function handleHookRetraction() : void{
         $owner = $this->getOwningEntity();
-        $dist = $this->distance($owner);
+        $dist = $this->distanceSquared($owner);
         $owner->setMotion($this->subtract($owner)->multiply($this->getGrapplingSpeed($dist)));
         $this->flagForDespawn();
     }
     
     private function getGrapplingSpeed(float $dist) : float{
-        $a = $dist / 6;
-        $limit = 0.253781903; //limit motion for detecting cheat and good speed
-        return $a >= $limit ? $limit : $a;
+        if($dist > 600):
+            $motion = 0.26;
+        elseif($dist > 500):
+            $motion = 0.24;
+        elseif($dist > 300):
+            $motion = 0.23;
+        elseif($dist > 200):
+            $motion = 0.201;
+        elseif($dist > 100):
+            $motion = 0.17;
+        elseif($dist > 40):
+            $motion = 0.11;
+        else:
+            $motion = 0.8;
+        endif;
+        
+        return $motion;
     }
 
     public function applyGravity() : void{
