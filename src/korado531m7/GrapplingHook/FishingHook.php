@@ -41,7 +41,6 @@ class FishingHook extends Projectile{
     
     public function __construct(Level $level, CompoundTag $nbt, ?Entity $owner = null){
         parent::__construct($level, $nbt, $owner);
-        $this->random = new Random();
         if($owner instanceof Player){
             $this->setPosition($this->add(0, $owner->getEyeHeight() - 0.1));
             $this->setMotion($owner->getDirectionVector()->multiply(0.4));
@@ -59,13 +58,14 @@ class FishingHook extends Projectile{
     }
 
     public function handleHookCasting(float $x, float $y, float $z, float $f1, float $f2){
+        $rand = new Random();
         $f = sqrt($x * $x + $y * $y + $z * $z);
         $x = $x / (float) $f;
         $y = $y / (float) $f;
         $z = $z / (float) $f;
-        $x = $x + $this->random->nextSignedFloat() * 0.007499999832361937 * (float) $f2;
-        $y = $y + $this->random->nextSignedFloat() * 0.007499999832361937 * (float) $f2;
-        $z = $z + $this->random->nextSignedFloat() * 0.007499999832361937 * (float) $f2;
+        $x = $x + $rand->nextSignedFloat() * 0.007499999832361937 * (float) $f2;
+        $y = $y + $rand->nextSignedFloat() * 0.007499999832361937 * (float) $f2;
+        $z = $z + $rand->nextSignedFloat() * 0.007499999832361937 * (float) $f2;
         $x = $x * (float) $f1;
         $y = $y * (float) $f1;
         $z = $z * (float) $f1;
